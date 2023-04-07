@@ -1,7 +1,7 @@
 description: "The art part of the project is still under development. Made by Leidari Dey (Elena Badasen)."
 start: "Welcome to the bot providing random cards from a deck. Choose your action"
 help: "Welcome to the bot providing random cards from a deck. Choose your action"
-command_not_found: "Command not found"
+command_not_found: "Command not found. Try /help"
 choose_your_action: "Choose your action"
 no_cards_left: "No cards left in the deck. Choose your action"
 cards_shuffled_back: "Cards shuffled back"
