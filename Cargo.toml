@@ -1,0 +1,21 @@
+[package]
+name = "telegram_bot_deck_of_cards"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1.0.104", features = ["derive"] }
+serde_json = "1.0.48"
+serde_yaml = "0.9"
+sqlx = { version = "0.6.2", features = [ "runtime-tokio-rustls", "postgres", "macros", "json", "offline", "time" ] }
+tokio = { version = "1", features = ["full"] }
+url = "2.3.1"
+teloxide = { version = "0.12", features = ["macros"] }
+csv = "1.1"
+rand = "0.8"
+time = "0.3.20"
+anyhow = "1.0"
+tracing = "0.1"
+tracing-subscriber = "0.3"

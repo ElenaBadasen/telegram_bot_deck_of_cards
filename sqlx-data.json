@@ -1,0 +1,331 @@
+{
+  "db": "PostgreSQL",
+  "01c2205b826bf44243310ac3014c6114af3b1b2155d8ff1e9519dfaa78c5de99": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO bots_subscribers (bot_id, subscriber_id) \n            values ($1, $2);\n        "
+  },
+  "13adadb3cd1cc0274381169666c886c0fe66fafdd999bba88891f8f6843dc961": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n            UPDATE cards\n            SET telegram_file_id_en = $1\n            WHERE filename=$2;\n        "
+  },
+  "27d28dcaedea0d4927c51c8312f3a14a56c022eadc9746c910f357b0b8aa0793": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "\n        SELECT id FROM bots WHERE active=true\n    "
+  },
+  "398217d329772950e9abce90aec68a1937be3c315ed16ed1ca7b13853de6a9ce": {
+    "describe": {
+      "columns": [
+        {
+          "name": "count",
+          "ordinal": 0,
+          "type_info": "Int8"
+        }
+      ],
+      "nullable": [
+        null
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "\n            SELECT COUNT(*) FROM cards;\n        "
+  },
+  "3ed5191fd5f213bb3e4ed3f3b0c4da7e1e8eaf6aa4717f15ebba7d1b88216fcf": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Timestamptz"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO subscribers (chat_id, created_at) \n            values ($1, $2)\n            RETURNING id;\n        "
+  },
+  "4374401da70e39976a1afa3cc8a803debebafb8191c470b1cf1bd823c36945ef": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Text"
+        ]
+      }
+    },
+    "query": "\n        SELECT id FROM subscribers \n        WHERE chat_id=$1;\n    "
+  },
+  "4d3be168be4903ebee139f4490a8d1ec3f6daa760d568384f41bd6c38d2b62d2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "language: process::Language",
+          "ordinal": 0,
+          "type_info": {
+            "Custom": {
+              "kind": {
+                "Enum": [
+                  "en",
+                  "ru"
+                ]
+              },
+              "name": "language"
+            }
+          }
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n        SELECT language AS \"language: process::Language\"\n        FROM chats_states \n        WHERE subscriber_id=$1;\n    "
+  },
+  "99d01f11988db2540f713c565522e12c6b1cb427636a909425764faa7e82bbff": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4",
+          "Int4Array",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n            INSERT INTO chats_states \n            (bot_id, subscriber_id, drawn_cards, language, descriptions_format) \n            values ($1, $2, $3, 'en', $4);\n        "
+  },
+  "aab5822ee0f57fe6ed5a7d45f8ec037f420cfc36c4f05a491bfe05de880a8185": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          {
+            "Custom": {
+              "kind": {
+                "Enum": [
+                  "en",
+                  "ru"
+                ]
+              },
+              "name": "language"
+            }
+          },
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n            UPDATE chats_states SET language=$1 \n            WHERE subscriber_id=$2 AND bot_id=$3;\n        "
+  },
+  "b95d0eb2ee14b82be80b44872e0207a1097de58db446bb1ce827b3247e002d00": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4Array",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n                UPDATE chats_states \n                SET drawn_cards=$1\n                WHERE subscriber_id = $2;\n            "
+  },
+  "c4757baf35b53c2ccac5cd91823f0feccd3e13e666debc71e41a48c9403e24a2": {
+    "describe": {
+      "columns": [
+        {
+          "name": "drawn_cards",
+          "ordinal": 0,
+          "type_info": "Int4Array"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n            SELECT drawn_cards FROM chats_states WHERE subscriber_id = $1;\n        "
+  },
+  "ce680897dacf4b8a71fdbf944c4fd03b6c647ad3e4f7ff30832a334940d5bd6b": {
+    "describe": {
+      "columns": [
+        {
+          "name": "descriptions_format",
+          "ordinal": 0,
+          "type_info": "Int4"
+        }
+      ],
+      "nullable": [
+        false
+      ],
+      "parameters": {
+        "Left": [
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n        SELECT descriptions_format FROM chats_states \n        WHERE subscriber_id=$1;\n    "
+  },
+  "d32211fc5fcfd6566379917b3ee1d4620d96d5b40ae9153276b033c5f9edf9b1": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4",
+          "Int4",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n            UPDATE chats_states SET descriptions_format=$1 \n            WHERE subscriber_id=$2 AND bot_id=$3;\n        "
+  },
+  "d48ca599ff28af6ecf0a9839269106fd906fcb2fb683ed67e7cb90c7ad79700c": {
+    "describe": {
+      "columns": [
+        {
+          "name": "id",
+          "ordinal": 0,
+          "type_info": "Int4"
+        },
+        {
+          "name": "filename",
+          "ordinal": 1,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "name_en",
+          "ordinal": 2,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "description_en",
+          "ordinal": 3,
+          "type_info": "Text"
+        },
+        {
+          "name": "name_ru",
+          "ordinal": 4,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "description_ru",
+          "ordinal": 5,
+          "type_info": "Text"
+        },
+        {
+          "name": "telegram_file_id_en",
+          "ordinal": 6,
+          "type_info": "Varchar"
+        },
+        {
+          "name": "telegram_file_id_ru",
+          "ordinal": 7,
+          "type_info": "Varchar"
+        }
+      ],
+      "nullable": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true
+      ],
+      "parameters": {
+        "Left": []
+      }
+    },
+    "query": "\n            SELECT * FROM cards;\n        "
+  },
+  "f35e03065bfaf3c95d259dbc787d345b3243aa8682649b88229cc9a289396941": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Int4Array",
+          "Int4"
+        ]
+      }
+    },
+    "query": "\n        UPDATE chats_states\n        SET drawn_cards = $1\n        WHERE subscriber_id = $2;\n    "
+  },
+  "fe07927423339ebeab6d09012083de7e8fdd79c4723a4c95290a5dcd357114c0": {
+    "describe": {
+      "columns": [],
+      "nullable": [],
+      "parameters": {
+        "Left": [
+          "Varchar",
+          "Varchar",
+          "Text",
+          "Varchar",
+          "Text"
+        ]
+      }
+    },
+    "query": "\n                INSERT INTO cards \n                (filename, name_en, description_en, name_ru, description_ru)\n                VALUES ($1, $2, $3, $4, $5);\n            "
+  }
+}
