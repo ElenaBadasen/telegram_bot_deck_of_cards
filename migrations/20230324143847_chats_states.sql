@@ -19,5 +19,5 @@ CREATE UNIQUE INDEX index_chats_states_on_bot_id_and_subscriber_id
 ON chats_states(bot_id, subscriber_id);
 CREATE UNIQUE INDEX index_chats_states_on_subscriber_id 
 ON chats_states(subscriber_id);
-CREATE UNIQUE INDEX index_chats_states_on_bot_id
+CREATE INDEX index_chats_states_on_bot_id
 ON chats_states(bot_id);
