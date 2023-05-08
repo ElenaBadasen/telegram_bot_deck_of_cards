@@ -177,10 +177,17 @@ pub async fn process_action(
         bot.answer_callback_query(q.id).await?;
     }
     if action.delete_previous_message {
-        bot.delete_message(chat.id, message_id).await?;
+        //if deletion failed, then whatever, it doesn't work after 48 hours
+        let _ = bot.delete_message(chat.id, message_id).await;
     } else if let Some(replacement_text) = action.replacement_text {
-        bot.edit_message_text(chat.id, message_id, replacement_text)
-            .await?;
+        let edit_result = bot
+            .edit_message_text(chat.id, message_id, replacement_text.clone())
+            .await;
+        if edit_result.is_err() {
+            //if editing message doesn't work (e.g., after 48 hours), 
+            //then just send the text separately
+            bot.send_message(chat.id, replacement_text).await?;
+        }
     }
     if let Some((input_file, image_description)) = action.image_data {
         let result = bot.send_photo(chat.id, input_file).await?;
